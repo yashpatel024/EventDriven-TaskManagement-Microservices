@@ -1,0 +1,46 @@
+User-Service ================
+DB: edsystem_user_db
+User = admin_edsystem_user
+password = adminuser
+
+<====Set Configuration and Setup the Repo for initial push====>
+Task-Service ================
+DB: edsystem_task_db
+User = admin_edsystem_task
+Password = admintask
+
+Notification-Service ================
+DB: edsystem_notification_db
+User = admin_edsystem_notification
+Password = adminnotification
+
+
+SCRIPT ======================
+DML====
+
+CREATE USER admin_edsystem_task WITH PASSWORD 'admintask';
+CREATE DATABASE edsystem_task_db OWNER admin_edsystem_task;
+
+CREATE USER admin_edsystem_notification WITH PASSWORD 'adminnotification';
+CREATE DATABASE edsystem_notification_db OWNER admin_edsystem_notification;
+
+CHECK DATABASE
+psql -U testuser -d testdb
+
+
+MAVEN CONFIGURATION =================
+spring.application.name=user-service
+spring.datasource.url=jdbc:postgresql://localhost:5432/edsystem_user_db
+spring.datasource.username=admin_edsystem_user
+spring.datasource.password=adminuser
+spring.jpa.hibernate.ddl-auto=update
+
+spring.kafka.bootstrap-servers=localhost:9092
+spring.kafka.consumer.group-id=user-service-group
+
+server.port=8081
+
+PORTS ===================
+user = 8081
+task = 8082
+notification = 8083
