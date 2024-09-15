@@ -32,3 +32,6 @@ bin
 
 # Ignore Mac system file
 .DS_Store
+
+#Configuration File
+Configuation.txt
