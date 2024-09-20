@@ -44,3 +44,27 @@ PORTS ===================
 user = 8081
 task = 8082
 notification = 8083
+
+
+DOCKER SETUP ========================
+a. Save the updated Docker Compose file.
+b. Stop any running containers and remove old volumes:
+    docker-compose down -v
+c. Start the services:
+    docker-compose up -d
+d. Check if the services are running:
+    docker-compose ps
+e. View the logs to ensure there are no errors:
+    docker-compose logs -f
+
+TEST THE KAFKA SETUP==============
+a.Access the Kafka UI:
+    Open a web browser and go to http://localhost:8080. You should see the Kafka UI interface where you can manage topics, view brokers, etc.
+b. Create a test topic:
+    docker-compose exec kafka kafka-topics.sh --create --topic test-topic --bootstrap-server kafka:9093 --partitions 1 --replication-factor 1
+c. List topics:
+    docker-compose exec kafka kafka-topics.sh --list --bootstrap-server kafka:9093
+d. Produce a message:
+    echo "Test message" | docker-compose exec -T kafka kafka-console-producer.sh --topic test-topic --bootstrap-server kafka:9093
+e. Consume messages:
+    docker-compose exec kafka kafka-console-consumer.sh --topic test-topic --from-beginning --bootstrap-s

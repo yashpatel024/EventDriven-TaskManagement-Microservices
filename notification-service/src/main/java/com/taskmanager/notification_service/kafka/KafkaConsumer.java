@@ -21,11 +21,13 @@ public class KafkaConsumer {
         @KafkaListener(topics = {"user-created", "task-created", "task-updated", "task-deleted", "task-completed", "task-deadline"},
                 groupId = "notification-group")
         public void consume(String message) {
+            System.out.println("Message = " + message);
             // parse the message
             JsonNode jsonNode = null;
             try {
                 jsonNode = objectMapper.readTree(message);
-                String eventType = jsonNode.get("eventType").asText();
+
+                String eventType = jsonNode.get("event-type").asText();
                 String userId = jsonNode.get("userId").asText();
 
                 NotificationType notificationType = mapEventNotificationType(eventType);
@@ -63,7 +65,7 @@ public class KafkaConsumer {
             case "task-updated":
             case "task-assigned":
             case "task-completed":
-                return new String[]{data.get("title").asText()};
+                return new String[]{data.get("task").get("title").asText()};
             default:
                 return new String[]{};
         }

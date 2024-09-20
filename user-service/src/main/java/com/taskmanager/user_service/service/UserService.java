@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Service
 public class UserService {
     @Autowired
@@ -19,10 +22,18 @@ public class UserService {
     private ObjectMapper objectMapper;
 
     public User createUser(User user) {
+        final String event = "user-created";
+        Map<String, Object> message = new HashMap<>();
         User savedUser = null;
+
         try {
             savedUser = userRepository.save(user);
-            kafkaTemplate.send("user-created", objectMapper.writeValueAsString(savedUser));
+
+            message.put("event-type", "user-created");
+            message.put("userId", savedUser.getId());
+            message.put("user", savedUser);
+
+            kafkaTemplate.send("user-created", objectMapper.writeValueAsString(message));
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }

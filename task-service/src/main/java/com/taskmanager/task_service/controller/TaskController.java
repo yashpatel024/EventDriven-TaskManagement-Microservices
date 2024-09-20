@@ -21,11 +21,23 @@ public class TaskController {
 
     @GetMapping("/{taskId}")
     public ResponseEntity<Task> getTasks(@PathVariable Long taskId) {
-        Task task = taskService.getTask(taskId);
-        if (task != null) {
-            return ResponseEntity.ok(task);
+        Task task = taskService.getTaskById(taskId);
+
+        if (task == null) {
+            return ResponseEntity.notFound().build();
         }
 
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(task);
+    }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<Task>> getTasksByUserId(@PathVariable Long userId) {
+        List<Task> allTasks = taskService.getAllTasksByUser(userId);
+
+        if (allTasks.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(allTasks);
     }
 }
