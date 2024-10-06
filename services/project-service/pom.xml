@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.taskmanagement</groupId>
-	<artifactId>notification-service</artifactId>
+	<artifactId>project-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>notification-service</name>
-	<description>Notification-service for Task Management Service</description>
+	<name>project-service</name>
+	<description>Project-service for Task Management Service</description>
 	<url/>
 	<licenses>
 		<license/>
