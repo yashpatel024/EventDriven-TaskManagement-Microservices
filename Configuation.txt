@@ -68,3 +68,8 @@ d. Produce a message:
     echo "Test message" | docker-compose exec -T kafka kafka-console-producer.sh --topic test-topic --bootstrap-server kafka:9093
 e. Consume messages:
     docker-compose exec kafka kafka-console-consumer.sh --topic test-topic --from-beginning --bootstrap-s
+
+
+   RUN MICROSERVICES:
+   mvn clean install
+   mvn spring-boot:run

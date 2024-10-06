@@ -35,3 +35,9 @@ bin
 
 #Configuration File
 Configuation.txt
+
+#Ignore the Instructions.txt file
+Instructions.txt
+
+#Ignore VS Code Files
+.vscode
